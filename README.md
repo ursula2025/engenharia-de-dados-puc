@@ -10,13 +10,13 @@
 
 ## 🎯 1. Introdução e Objetivo
 
-Este projeto demonstra a proficiência em Engenharia de Dados, focando na construção de uma arquitetura de dados (`Data Warehouse`) que permita a **análise de negócios** para a gestão de um restaurante. O objetivo final foi entregar uma base de dados confiável (tabela `GOLD`) e responder a questões estratégicas sobre Mix de Vendas, Sazonalidade e Perfil do Cliente.
+Este projeto aplica conceitos fundamentais de Engenharia de Dados, focando na construção de uma arquitetura de dados (`Data Warehouse`) que permita a **análise de negócios** para a gestão de um restaurante. O objetivo final foi entregar uma base de dados confiável (tabela `GOLD`) e responder a questões estratégicas sobre Mix de Vendas, Sazonalidade e Perfil do Cliente.
 
 O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentais:
 
-1.  **Top Produtos:** Quais são os 10 produtos mais vendidos (em quantidade)?
+1.  **Produtos Mais Vendidos:** Quais são os 10 produtos mais vendidos (em quantidade)?
 2.  **Mix de Vendas:** Dentre os diversos tipos, quais Grupos geram mais receita?
-3.  **Estoque Morto:** Quais são os 10 produtos menos vendidos?
+3.  **Produtos Menos Vendidos:** Quais são os 10 produtos menos vendidos?
 4.  **Performance de PDV:** Qual o ranking de faturamento por Ponto de Venda?
 5.  **Sazonalidade:** Qual é o faturamento por hora do dia (identificação de picos)?
 6.  **Ticket Médio:** Qual é o valor médio gasto por nota fiscal?
@@ -27,7 +27,7 @@ O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentai
 
 ---
 
-## 🔄 2. Linhagem e Origem dos Dados (Data Lineage)
+## 🔄 2. Linhagem e Origem dos Dados
 
 ### 2.1. Origem dos Dados
 A fonte de dados para o projeto consiste em arquivos brutos de transações de vendas extraídos do sistema de **Ponto de Venda (PDV)** da empresa onde atuo profissionalmente.
