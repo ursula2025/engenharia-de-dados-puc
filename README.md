@@ -20,9 +20,8 @@ O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentai
 4.  **Performance de PDV:** Qual o ranking de faturamento por Ponto de Venda?
 5.  **Sazonalidade:** Qual é o faturamento por hora do dia (identificação de picos)?
 6.  **Ticket Médio:** Qual é o valor médio gasto por nota fiscal?
-7.  **Clientes VIP:** Quais são os 10 sócios que mais consumiram?
-8.  **Fluxo de Caixa:** Qual a divisão entre vendas "A Faturar" vs. "Pago na Hora"?
-
+7.  **Clientes VIP:** Quais são os 10 sócios que mais consumiram (em valor)?
+8.  **Fluxo de Caixa:** Qual a divisão do faturamento total entre os tipos de consumo ("A Faturar" vs. "Pago na Hora")?
 * **Período Analisado:** 01/01/2025 a 13/11/2025.
 
 ---
@@ -51,16 +50,16 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 | Coluna | Tipo | Descrição do Domínio | Intervalo / Valores Esperados |
 | :--- | :---: | :--- | :--- |
 | `DATA_HORA` | `TIMESTAMP` | Momento da transação | **Min:** 2025-01-01 / **Max:** 2025-11-13 |
-| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Valor líquido **do item** (R$) | **Min:** 0.00 (ver nota 1) / **Max:** [INSIRA SEU VALOR MÁXIMO] |
+| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Valor líquido **do item** (R$) | **Min:** 0.00 (ver nota 1) / **Max:** 85181.74 |
 | `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600* (ver nota 2) |
 | `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN, BINGO* |
 | `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET, BEBIDAS, CERVEJAS* |
 | `TIPO_CONSUMO` | `STRING` | Forma de pagamento | `SOCIO_A_FATURAR`, `AVULSO_PAGO_NA_HORA` |
-| `NOME_PDV` | `STRING` | Local da venda | *Ex: RESTAURANTE PRINCIPAL, QUIOSQUE* |
+| `NOME_PDV` | `STRING` | Local da venda | *Ex: BAR MISTO, BAR INGLES* |
 | `ID_SOCIO` | `STRING` | Código do cliente | Números ou `null` (anônimo) |
-| `NUM_NFCE` | `STRING` | Chave da Nota Fiscal | Identificador único |
+| `NUM_NFCE` | `STRING` | Número da Nota Fiscal | Identificador único |
 
-> **Nota 1 (Min):** O valor R$ 0.00 refere-se a itens promocionais, cortesias ou componentes de combos. A Nota Fiscal consolidada sempre possui valor total > 0.
+> **Nota 1 (Min):** O valor R$ 0.00 refere-se a itens de serviço (ex: Taxa de Serviço) cujos valores foram desconsiderados nesta visão para focar na análise de produtos, ou registros operacionais do sistema.
 >
 > **Nota 2 (Max):** Valores extremos na coluna `QUANTIDADE` (ex: > 100) referem-se a pacotes de festas ou eventos lançados em nota única, e não a erros de sistema.
 
@@ -68,16 +67,16 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 
 ## 📈 4. Resultados da Análise de Negócios
 
-A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insights* estratégicos:
+A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insights*:
 
 ### 4.1. Mix de Vendas e Estoque
-* **Top Produtos:** A lista é dominada por itens de necessidade e conveniência (Café, Água), que possuem alto giro operacional mas baixo ticket unitário.
+* **Produtos Mais Vendidos:** A lista é dominada por itens de necessidade e conveniência (Café, Água), que possuem alto giro operacional mas baixo ticket unitário.
 * **Grupos Fortes:** O faturamento é concentrado no grupo **BUFFET E EVENTOS** (líder isolado) e nas **Bebidas** (Alcoólicas + Não Alcoólicas), que somadas representam a segunda maior fonte de receita.
-* **Estoque Morto:** Todos os 10 produtos menos vendidos registraram apenas **uma única unidade vendida** em quase 11 meses, indicando a necessidade de revisão do cardápio.
+* **Produtos Menos Vendidos:** Todos os 10 produtos menos vendidos registraram apenas **uma única unidade vendida** em quase 11 meses.
 
 ### 4.2. Sazonalidade e Operação
-* **Picos de Horário:** O gráfico revela um perfil de consumo vespertino/lazer. O pico máximo de faturamento ocorre às **16:00h**, seguido das 15:00h, com queda acentuada no período noturno (após 20h).
-* **Concentração de PDV:** A receita é altamente dependente do **[NOME DO PDV LÍDER]**, enquanto os demais pontos atuam apenas como satélites de apoio.
+* **Picos de Horário:** O gráfico revela um perfil de consumo vespertino. O pico máximo de faturamento ocorre às **16:00h**, seguido das 15:00h, com queda acentuada no período noturno (após 20h).
+* **Concentração de PDV:** A receita é altamente dependente do **Bar Misto**, enquanto os demais pontos apresentam menor representatividade no volume total.
 
 ### 4.3. Perfil Financeiro e Cliente
 * **Ticket Médio:** O valor médio por transação é de **R$ 121,49**.
@@ -88,4 +87,4 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 
 ## 💡 5. Conclusão Geral
 
-Este MVP validou a capacidade de transformar dados transacionais complexos e "sujos" em informações estratégicas claras. A construção da tabela `GOLD` e a validação da qualidade dos dados (Data Profiling) permitiram à gestão identificar o **perfil de consumo vespertino** e a **dependência crítica do fluxo de caixa na liquidação de contas de sócios**, fornecendo insumos diretos para a tomada de decisão financeira e operacional.
+A implementação deste projeto permitiu transformar dados transacionais brutos e complexos em inteligência de negócio tangível. As análises realizadas demonstraram como a estruturação correta dos dados pode revelar gargalos no cardápio (itens de baixo giro), otimizar a escala de trabalho baseada na demanda horária e clarificar o perfil de fluxo de caixa (alta dependência de recebimentos futuros). O resultado é uma ferramenta analítica perene, pronta para suportar decisões estratégicas de curto e longo prazo.
