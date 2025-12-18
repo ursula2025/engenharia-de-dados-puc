@@ -31,7 +31,7 @@ O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentai
 ### 2.1. Origem dos Dados
 A fonte de dados para o projeto consiste em arquivos brutos de transações de vendas extraídos do sistema de **Ponto de Venda (PDV)** da empresa onde atuo profissionalmente.
 
-> **Nota de Consentimento:** Este projeto utiliza dados corporativos reais, cedidos pela empresa mediante **autorização expressa da Presidência**. O dataset não contém informações sensíveis de clientes e foi utilizado exclusivamente para fins de análise técnica e demonstração acadêmica.
+> **Nota de Consentimento:** Este projeto utiliza dados corporativos reais, cedidos pela empresa mediante **autorização da Presidência**. O dataset não contém informações sensíveis de clientes e foi utilizado exclusivamente para fins de análise técnica e demonstração acadêmica.
 
 ### 2.2. Pipeline de Transformação (Arquitetura)
 A linhagem dos dados segue a arquitetura **Medallion (Bronze, Silver, Gold)** executada no ambiente **Databricks** utilizando **Spark SQL**:
