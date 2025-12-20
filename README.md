@@ -92,6 +92,9 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 </div>
 
 * **Produtos Menos Vendidos:** Todos os 10 produtos menos vendidos registraram apenas **uma única unidade vendida** em quase 11 meses.
+<div align="center">
+  <img src="Imagens/menos_vendidos.png" width="700px" />
+</div>
 
 ### 5.2. Sazonalidade e Operação
 * **Picos de Horário:** O gráfico revela um perfil de consumo vespertino. O pico máximo de faturamento ocorre às **16:00h**, seguido das 15:00h, com queda acentuada no período noturno (após 20h).
