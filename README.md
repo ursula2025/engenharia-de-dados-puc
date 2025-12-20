@@ -61,21 +61,26 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 | Coluna | Tipo | Descrição do Domínio | Intervalo / Valores Esperados |
 | :--- | :---: | :--- | :--- |
 | `DATA_HORA` | `TIMESTAMP` | Momento da transação | **Min:** 2025-01-01 / **Max:** 2025-11-13 |
-| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Valor líquido do item (R$) | **Min:** 0.00 (ver nota 1) / **Max:** 85181.74 |
-| `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600* (ver nota 2) |
+| `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600 |
+| `COD_PRODUTO` | `INT` | Código identificador do item|
 | `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN* |
 | `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET E EVENTOS, CARNES, AVES* |
 | `TIPO_PAGAMENTO` | `STRING` | Forma de pagamento | SOCIO_A_FATURAR, AVULSO_PAGO_NA_HORA |
 | `NOME_PDV` | `STRING` | Local da venda | *Ex: BAR MISTO, BAR INGLES* |
 | `ID_SOCIO` | `STRING` | Código do cliente | Números ou null |
 | `NUM_NFCE` | `STRING` | Número da Nota Fiscal | Identificador único |
-| `PRECO_UNITARIO` | `DOUBLE` | Preço de tabela de uma unidade | Ex: 8.50 |
+| `PRECO_UNITARIO` | `DOUBLE` | Preço de uma unidade | Ex: 8.50 |
 | `VALOR_TOTAL_ITEM`| `DOUBLE` | Faturamento Bruto (Preço x Qtd) | Valor antes da aplicação de descontos |
-| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Faturamento Real (Total - Desconto) | Valor líquido que compõe o faturamento |
+| `VALOR_DESCONTO` | `DOUBLE` | Valor do desconto aplicado no VALOR_TOTAL_ITEM| Valor do desconto concedido |
+| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Faturamento Real (VALOR_TOTAL_ITEM - VALOR_DESCONTO) | Valor líquido que compõe o faturamento |
 
-> **Nota 1 (Min):** O valor R$ 0.00 refere-se a itens de serviço (ex: Taxa de Serviço) cujos valores foram desconsiderados nesta visão para focar na análise de produtos, ou registros operacionais do sistema.
+**Notas Adicionais sobre os Dados**
+
+> A coluna `FATURAMENTO_LIQUIDO` é a métrica oficial utilizada para o cálculo do Ticket Médio e análise de performance. Ela garante que descontos não inflem os resultados reais do negócio.
 >
-> **Nota 2 (Max):** Valores extremos na coluna `QUANTIDADE` referem-se a pacotes de festas ou eventos lançados em nota única, e não a erros de sistema.
+> A coluna `TIPO_PAGAMENTO` foi criada logicamente: quando o `ID_SOCIO` é nulo, a venda é classificada como `AVULSO_PAGO_NA_HORA`. Caso contrário, é `SOCIO_A_FATURAR`.
+>
+> Itens classificados como "Taxa de Serviço" possuem `FATURAMENTO_LIQUIDO` zerado (**0.00**). Esta regra evita a distorção do Ticket Médio de consumo real de produtos, mantendo o valor original apenas em `VALOR_TOTAL_ITEM` para fins de auditoria e conferência de caixa.
 
 ---
 
