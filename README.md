@@ -125,3 +125,19 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 ## 💡 6. Conclusão Geral
 
 A implementação deste projeto permitiu transformar dados transacionais brutos e complexos em inteligência de negócio tangível. As análises realizadas demonstraram como a estruturação correta dos dados pode revelar gargalos no cardápio (itens de baixo giro), otimizar a escala de trabalho baseada na demanda horária e clarificar o perfil de fluxo de caixa (alta dependência de recebimentos futuros). O resultado é uma ferramenta analítica perene, pronta para suportar decisões estratégicas de curto e longo prazo.
+
+---
+
+## 📝 Autoavaliação
+
+### 1. Objetivos atingidos
+O projeto cumpriu com sucesso o objetivo de transformar dados brutos de um sistema de vendas em informações estratégicas. Através da implementação da **Arquitetura Medallion**, foi possível estruturar um pipeline de dados confiável que fundamentou a análise de faturamento, mix de produtos e comportamento dos clientes.
+
+### 2. Desafios e Aprendizados
+* Um dos maiores desafios foi o aprendizado da ferramenta. Como foi meu primeiro contato, precisei entender toda a dinâmica do zero.
+* Lidar com dados reais exigiu um esforço significativo em limpeza e padronização. O principal desafio técnico foi realizar o enriquecimento da base através de Joins entre tabelas de vendas e de cadastros, garantindo que as categorias de produtos estivessem corretas para os *insights* finais.
+
+### 3. Evolução e Trabalhos Futuros
+Como passos seguintes para evolução desta solução, pretendo:
+* Implementar *Databricks Workflows* para execução automática do pipeline.
+* Implementar painéis de visualização (dashboards) para acompanhar os indicadores de vendas e o comportamento dos clientes de forma dinâmica.
