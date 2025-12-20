@@ -28,7 +28,7 @@ O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentai
 
 ## 📂 2. Estrutura do Projeto
 
-A solução foi desenvolvida em 4 etapas sequenciais. **Observações técnicas detalhadas, regras de negócio e a lógica de evolução encontram-se documentadas nos Markdowns de cada notebook:**
+A solução foi desenvolvida em 4 etapas sequenciais. **Observações, técnicas detalhadas, regras de negócio e a lógica de evolução encontram-se documentadas nos Markdowns de cada notebook:**
 
 * **`Notebook 1: Camada BRONZE`:** Ingestão dos dados brutos e configuração do ambiente.
 * **`Notebook 2: Camada SILVER`:** Limpeza, tipagem de dados e tratamento de nulos.
@@ -47,10 +47,10 @@ A fonte de dados para o projeto consiste em arquivos brutos de transações de v
 ### 3.2. Pipeline de Transformação (Arquitetura)
 A linhagem dos dados segue a arquitetura **Medallion (Bronze, Silver, Gold)** executada no ambiente **Databricks** utilizando **Spark SQL**:
 
-1.  **Fonte (Source):** Arquivos brutos extraídos do ERP.
-2.  **Camada Bronze (Raw):** Ingestão dos dados no Data Lake sem tratamento.
-3.  **Camada Silver (Trusted):** Limpeza de dados, tipagem forte (casting), remoção de nulos e padronização.
-4.  **Camada Gold (Refined):** Criação da tabela desnormalizada `default.gold_vendas_flat_model`, otimizada para consultas analíticas (OLAP).
+1.  **Fonte:** Arquivos brutos extraídos do ERP.
+2.  **Camada Bronze:** Ingestão dos dados no Data Lake sem tratamento.
+3.  **Camada Silver:** Limpeza de dados, tipagem forte (casting), remoção de nulos e padronização.
+4.  **Camada Gold:** Criação da tabela desnormalizada `default.gold_vendas_flat_model`, otimizada para consultas analíticas.
 
 ---
 
@@ -61,18 +61,18 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 | Coluna | Tipo | Descrição do Domínio | Intervalo / Valores Esperados |
 | :--- | :---: | :--- | :--- |
 | `DATA_HORA` | `TIMESTAMP` | Momento da transação | **Min:** 2025-01-01 / **Max:** 2025-11-13 |
-| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Valor líquido **do item** (R$) | **Min:** 0.00 (ver nota 1) / **Max:** 85181.74 |
+| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Valor líquido do item (R$) | **Min:** 0.00 (ver nota 1) / **Max:** 85181.74 |
 | `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600* (ver nota 2) |
-| `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN, BINGO* |
-| `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET, BEBIDAS, CERVEJAS* |
+| `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN* |
+| `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET E EVENTOS, CARNES, AVES* |
 | `TIPO_CONSUMO` | `STRING` | Forma de pagamento | `SOCIO_A_FATURAR`, `AVULSO_PAGO_NA_HORA` |
 | `NOME_PDV` | `STRING` | Local da venda | *Ex: BAR MISTO, BAR INGLES* |
-| `ID_SOCIO` | `STRING` | Código do cliente | Números ou `null` (anônimo) |
+| `ID_SOCIO` | `STRING` | Código do cliente | Números ou `null` |
 | `NUM_NFCE` | `STRING` | Número da Nota Fiscal | Identificador único |
 
 > **Nota 1 (Min):** O valor R$ 0.00 refere-se a itens de serviço (ex: Taxa de Serviço) cujos valores foram desconsiderados nesta visão para focar na análise de produtos, ou registros operacionais do sistema.
 >
-> **Nota 2 (Max):** Valores extremos na coluna `QUANTIDADE` (ex: > 100) referem-se a pacotes de festas ou eventos lançados em nota única, e não a erros de sistema.
+> **Nota 2 (Max):** Valores extremos na coluna `QUANTIDADE` referem-se a pacotes de festas ou eventos lançados em nota única, e não a erros de sistema.
 
 ---
 
@@ -86,7 +86,7 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
   <img src="Imagens/top_10.png" width="700px" />
 </div>
 
-* **Grupos Fortes:** O faturamento é concentrado no grupo **BUFFET E EVENTOS** (líder isolado) e nas **Bebidas** (Alcoólicas + Não Alcoólicas), que somadas representam a segunda maior fonte de receita.
+* **Performance por Grupo:** O faturamento é concentrado no grupo **BUFFET E EVENTOS** e nas **Bebidas** (Alcoólicas + Não Alcoólicas), que somadas representam a segunda maior fonte de receita.
 <div align="center">
   <img src="Imagens/grupos.png" width="700px" />
 </div>
@@ -107,7 +107,7 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
   <img src="Imagens/faturamento_pdv.png" width="700px" />
 </div>
 
-### 5.3. Perfil Financeiro e Cliente
+### 5.3. Perfil Financeiro e de Cliente
 * **Ticket Médio:** O valor médio por transação é de **R$ 121,49**.
   
 * **Clientes VIP:** Os Top 10 Sócios possuem um volume de gastos acumulado significativamente superior à média, indicando alta fidelidade e recorrência.
@@ -122,22 +122,30 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 
 ---
 
-## 💡 6. Conclusão Geral
+## 💡 6. Conclusão
 
-A implementação deste projeto permitiu transformar dados transacionais brutos e complexos em inteligência de negócio tangível. As análises realizadas demonstraram como a estruturação correta dos dados pode revelar gargalos no cardápio (itens de baixo giro), otimizar a escala de trabalho baseada na demanda horária e clarificar o perfil de fluxo de caixa (alta dependência de recebimentos futuros). O resultado é uma ferramenta analítica perene, pronta para suportar decisões estratégicas de curto e longo prazo.
+Este projeto apresentou o processamento e a análise de uma base de dados transacionais utilizando a plataforma Databricks. Através das etapas de tratamento e organização dos dados, foi possível converter registros brutos em informações estruturadas e de fácil interpretação.
+
+Os resultados obtidos permitiram identificar padrões relevantes sobre o funcionamento da operação estudada:
+
+* A identificação de itens com baixa rotatividade e o faturamento por Grupos;
+* O mapeamento dos picos de vendas ao longo do dia, fundamentando a compreensão do fluxo de atendimento;
+* A identificação da principal forma de pagamento e sua participação no faturamento total;
+
+A estruturação dos dados facilitou a compreensão da realidade da operação. O projeto comprova que grandes volumes de registros podem ser convertidos em informações valiosas para a gestão do negócio.
 
 ---
 
 ## 📝 Autoavaliação
 
 ### 1. Objetivos atingidos
-O projeto cumpriu com sucesso o objetivo de transformar dados brutos de um sistema de vendas em informações estratégicas. Através da implementação da **Arquitetura Medallion**, foi possível estruturar um pipeline de dados confiável que fundamentou a análise de faturamento, mix de produtos e comportamento dos clientes.
+O projeto cumpriu com sucesso o objetivo de transformar dados brutos de um sistema de vendas em informações estratégicas. Através da implementação da Arquitetura Medallion, foi possível estruturar um pipeline de dados confiável que fundamentou a análise de faturamento, mix de produtos e comportamento dos clientes.
 
 ### 2. Desafios e Aprendizados
 * Um dos maiores desafios foi o aprendizado da ferramenta. Como foi meu primeiro contato, precisei entender toda a dinâmica do zero.
-* Lidar com dados reais exigiu um esforço significativo em limpeza e padronização. O principal desafio técnico foi realizar o enriquecimento da base através de Joins entre tabelas de vendas e de cadastros, garantindo que as categorias de produtos estivessem corretas para os *insights* finais.
+* Lidar com dados reais exigiu um esforço significativo em limpeza e padronização. O principal desafio técnico foi realizar o enriquecimento da base através de Joins entre tabelas de vendas e de cadastros, garantindo que as categorias de produtos estivessem corretas para os insights finais.
 
 ### 3. Evolução e Trabalhos Futuros
 Como passos seguintes para evolução desta solução, pretendo:
-* Implementar *Databricks Workflows* para execução automática do pipeline.
+* Implementar Databricks Workflows para execução automática do pipeline.
 * Implementar painéis de visualização (dashboards) para acompanhar os indicadores de vendas e o comportamento dos clientes de forma dinâmica.
