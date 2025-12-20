@@ -98,7 +98,14 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 
 ### 5.2. Sazonalidade e Operação
 * **Picos de Horário:** O gráfico revela um perfil de consumo vespertino. O pico máximo de faturamento ocorre às **16:00h**, seguido das 15:00h, com queda acentuada no período noturno (após 20h).
+<div align="center">
+  <img src="Imagens/faturamento_hora.png" width="700px" />
+</div>
+  
 * **Concentração de PDV:** A receita é altamente dependente do **Bar Misto**, enquanto os demais pontos apresentam menor representatividade no volume total.
+<div align="center">
+  <img src="Imagens/faturamento_pdv.png" width="700px" />
+</div>
 
 ### 5.3. Perfil Financeiro e Cliente
 * **Ticket Médio:** O valor médio por transação é de **R$ 121,49**.
