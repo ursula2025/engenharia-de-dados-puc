@@ -8,9 +8,9 @@
 
 ---
 
-## 🎯 1. Introdução e Objetivo
+## 1. Introdução e Objetivo
 
-Este projeto aplica conceitos fundamentais de Engenharia de Dados, focando na construção de uma arquitetura de dados (`Data Warehouse`) que permita a **análise de negócios** para a gestão de um restaurante. O objetivo final foi entregar uma base de dados confiável (tabela `GOLD`) e responder a questões estratégicas sobre Mix de Vendas, Sazonalidade e Perfil do Cliente.
+Este projeto aplica conceitos fundamentais de Engenharia de Dados, focando na construção de uma arquitetura de dados (Data Warehouse) que permita a **análise de negócios** para a gestão de um restaurante. O objetivo final foi entregar uma base de dados confiável (tabela GOLD) e responder a questões estratégicas sobre Mix de Vendas, Sazonalidade e Perfil do Cliente.
 
 O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentais:
 
@@ -26,18 +26,18 @@ O projeto foi desenhado para responder a **8 perguntas de negócio** fundamentai
 
 ---
 
-## 📂 2. Estrutura do Projeto
+## 2. Estrutura do Projeto
 
 A solução foi desenvolvida em 4 etapas sequenciais. **Observações, técnicas detalhadas, regras de negócio e a lógica de evolução encontram-se documentadas nos Markdowns de cada notebook:**
 
 * **`Notebook 1: Camada BRONZE`:** Ingestão dos dados brutos e configuração do ambiente.
 * **`Notebook 2: Camada SILVER`:** Limpeza, tipagem de dados e tratamento de nulos.
 * **`Notebook 3: Camada GOLD`:** Aplicação de regras de negócio (tratamento de taxas, joins com tabela de grupos) e criação da tabela analítica.
-* **`Notebook 4: Análise`:** Consultas SQL (Queries), geração de gráficos e *insights* de negócio respondendo às 8 perguntas do projeto.
+* **`Notebook 4: Análise`:** Consultas SQL (Queries), geração de gráficos e insights de negócio respondendo às 8 perguntas do projeto.
 
 ---
 
-## 🔄 3. Linhagem e Origem dos Dados
+## 3. Linhagem e Origem dos Dados
 
 ### 3.1. Origem dos Dados
 A fonte de dados para o projeto consiste em arquivos brutos de transações de vendas extraídos do sistema de **Ponto de Venda (PDV)** da empresa onde atuo profissionalmente.
@@ -54,7 +54,7 @@ A linhagem dos dados segue a arquitetura **Medallion (Bronze, Silver, Gold)** ex
 
 ---
 
-## 📚 4. Dicionário de Dados
+## 4. Dicionário de Dados
 
 Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 
@@ -65,9 +65,9 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 | `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600* (ver nota 2) |
 | `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN* |
 | `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET E EVENTOS, CARNES, AVES* |
-| `TIPO_CONSUMO` | `STRING` | Forma de pagamento | `SOCIO_A_FATURAR`, `AVULSO_PAGO_NA_HORA` |
+| `TIPO_CONSUMO` | `STRING` | Forma de pagamento | SOCIO_A_FATURAR, AVULSO_PAGO_NA_HORA |
 | `NOME_PDV` | `STRING` | Local da venda | *Ex: BAR MISTO, BAR INGLES* |
-| `ID_SOCIO` | `STRING` | Código do cliente | Números ou `null` |
+| `ID_SOCIO` | `STRING` | Código do cliente | Números ou null |
 | `NUM_NFCE` | `STRING` | Número da Nota Fiscal | Identificador único |
 
 > **Nota 1 (Min):** O valor R$ 0.00 refere-se a itens de serviço (ex: Taxa de Serviço) cujos valores foram desconsiderados nesta visão para focar na análise de produtos, ou registros operacionais do sistema.
@@ -76,9 +76,9 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 
 ---
 
-## 📈 5. Resultados da Análise de Negócios
+## 5. Resultados da Análise de Negócios
 
-A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insights*:
+A análise foi conduzida através do **Notebook 4**, gerando os seguintes insights:
 
 ### 5.1. Mix de Vendas
 * **Produtos Mais Vendidos:** A lista é dominada por itens de necessidade e conveniência (Café, Água), que possuem alto giro operacional mas baixo ticket unitário.
@@ -115,14 +115,14 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
   <img src="Imagens/top_10_clientes.png" width="700px" />
 </div>
 
-* **Fluxo de Caixa:** A operação é fortemente baseada em vendas com **cobrança posterior**. A categoria `SOCIO_A_FATURAR` responde por **90.4%** do faturamento líquido, enquanto o pagamento à vista (`AVULSO_PAGO_NA_HORA`) representa apenas 9.6%.
+* **Fluxo de Caixa:** A operação é fortemente baseada em vendas com **cobrança posterior**. A categoria SOCIO_A_FATURAR responde por **90.4%** do faturamento líquido, enquanto o pagamento à vista (AVULSO_PAGO_NA_HORA) representa apenas 9.6%.
 <div align="center">
   <img src="Imagens/pagamento.png" width="700px" />
 </div>
 
 ---
 
-## 💡 6. Conclusão
+## 6. Conclusão
 
 Este projeto apresentou o processamento e a análise de uma base de dados transacionais utilizando a plataforma Databricks. Através das etapas de tratamento e organização dos dados, foi possível converter registros brutos em informações estruturadas e de fácil interpretação.
 
@@ -136,7 +136,7 @@ A estruturação dos dados facilitou a compreensão da realidade da operação. 
 
 ---
 
-## 📝 Autoavaliação
+## Autoavaliação
 
 ### 1. Objetivos atingidos
 O projeto cumpriu com sucesso o objetivo de transformar dados brutos de um sistema de vendas em informações estratégicas. Através da implementação da Arquitetura Medallion, foi possível estruturar um pipeline de dados confiável que fundamentou a análise de faturamento, mix de produtos e comportamento dos clientes.
