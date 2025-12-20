@@ -65,10 +65,13 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 | `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600* (ver nota 2) |
 | `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN* |
 | `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET E EVENTOS, CARNES, AVES* |
-| `TIPO_CONSUMO` | `STRING` | Forma de pagamento | SOCIO_A_FATURAR, AVULSO_PAGO_NA_HORA |
+| `TIPO_PAGAMENTO` | `STRING` | Forma de pagamento | SOCIO_A_FATURAR, AVULSO_PAGO_NA_HORA |
 | `NOME_PDV` | `STRING` | Local da venda | *Ex: BAR MISTO, BAR INGLES* |
 | `ID_SOCIO` | `STRING` | Código do cliente | Números ou null |
 | `NUM_NFCE` | `STRING` | Número da Nota Fiscal | Identificador único |
+| `PRECO_UNITARIO` | `DOUBLE` | Preço de tabela de uma unidade | Ex: 8.50 |
+| `VALOR_TOTAL_ITEM`| `DOUBLE` | Faturamento Bruto (Preço x Qtd) | Valor antes da aplicação de descontos |
+| `FATURAMENTO_LIQUIDO` | `DOUBLE` | Faturamento Real (Total - Desconto) | Valor líquido que compõe o faturamento |
 
 > **Nota 1 (Min):** O valor R$ 0.00 refere-se a itens de serviço (ex: Taxa de Serviço) cujos valores foram desconsiderados nesta visão para focar na análise de produtos, ou registros operacionais do sistema.
 >
