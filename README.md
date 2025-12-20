@@ -82,8 +82,15 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 
 ### 5.1. Mix de Vendas
 * **Produtos Mais Vendidos:** A lista é dominada por itens de necessidade e conveniência (Café, Água), que possuem alto giro operacional mas baixo ticket unitário.
+<div align="center">
+  <img src="Imagens/top_10.png" width="700px" />
+</div>
 
 * **Grupos Fortes:** O faturamento é concentrado no grupo **BUFFET E EVENTOS** (líder isolado) e nas **Bebidas** (Alcoólicas + Não Alcoólicas), que somadas representam a segunda maior fonte de receita.
+<div align="center">
+  <img src="Imagens/grupos.png" width="700px" />
+</div>
+
 * **Produtos Menos Vendidos:** Todos os 10 produtos menos vendidos registraram apenas **uma única unidade vendida** em quase 11 meses.
 
 ### 5.2. Sazonalidade e Operação
