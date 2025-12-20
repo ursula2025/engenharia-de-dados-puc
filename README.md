@@ -109,8 +109,16 @@ A análise foi conduzida através do **Notebook 4**, gerando os seguintes *insig
 
 ### 5.3. Perfil Financeiro e Cliente
 * **Ticket Médio:** O valor médio por transação é de **R$ 121,49**.
+  
 * **Clientes VIP:** Os Top 10 Sócios possuem um volume de gastos acumulado significativamente superior à média, indicando alta fidelidade e recorrência.
+<div align="center">
+  <img src="Imagens/top_10_clientes.png" width="700px" />
+</div>
+
 * **Fluxo de Caixa:** A operação é fortemente baseada em vendas com **cobrança posterior**. A categoria `SOCIO_A_FATURAR` responde por **90.4%** do faturamento líquido, enquanto o pagamento à vista (`AVULSO_PAGO_NA_HORA`) representa apenas 9.6%.
+<div align="center">
+  <img src="Imagens/pagamento.png" width="700px" />
+</div>
 
 ---
 
