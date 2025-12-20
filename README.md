@@ -60,9 +60,9 @@ Especificação técnica da tabela analítica `gold_vendas_flat_model`.
 
 | Coluna | Tipo | Descrição do Domínio | Intervalo / Valores Esperados |
 | :--- | :---: | :--- | :--- |
-| `DATA_HORA` | `TIMESTAMP` | Momento da transação | **Min:** 2025-01-01 / **Max:** 2025-11-13 |
-| `QUANTIDADE` | `INT` | Unidades vendidas | **Min:** 1 / **Max:** 600 |
-| `COD_PRODUTO` | `INT` | Código identificador do item|
+| `DATA_HORA` | `TIMESTAMP` | Momento da transação | Data e hora no formato AAAA-MM-DD HH:MM:SS |
+| `QUANTIDADE` | `INT` | Volume de unidades do item na venda | Valores numéricos inteiros |
+| `COD_PRODUTO` | `INT` | Código identificador do item| Identificador de referência do produto |
 | `NOME_PRODUTO` | `STRING` | Item do cardápio | *Ex: CAFE EXPRESSO, HEINEKEN* |
 | `NOME_GRUPO` | `STRING` | Categoria macro | *Ex: BUFFET E EVENTOS, CARNES, AVES* |
 | `TIPO_PAGAMENTO` | `STRING` | Forma de pagamento | SOCIO_A_FATURAR, AVULSO_PAGO_NA_HORA |
